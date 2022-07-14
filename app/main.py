@@ -29,7 +29,7 @@ async def ping():
     return [True]
 
 
-app.include_router(spell_helper_router, prefix="/spell_helper")
+app.include_router(spell_helper_router, prefix="/spell")
 
 
 @app.middleware("http")
