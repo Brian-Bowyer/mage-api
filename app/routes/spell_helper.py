@@ -30,12 +30,12 @@ def validate_spell(spell: SpellIn):
 
 @router.post("/mana")
 def total_mana(spell: SpellIn):
-    pass
+    raise NotImplementedError()
 
 
 @router.post("/paradox")
 def paradox_pool(spell: SpellIn):
-    pass
+    raise NotImplementedError()
 
 
 @router.post("/pool")
