@@ -18,6 +18,7 @@ class Skill(NamedProperty):
 
 
 class Yantra(NamedProperty):
+    # just a named property, nothing else to see here
     pass
 
 
@@ -48,21 +49,29 @@ class SpellIn(BaseModel):
     name: str = None
     required_arcana: SpellArcanum
     primary_factor: Factor = "Potency"
-    is_rote: bool
-    is_praxis: bool
+    is_rote: bool = False
+    is_praxis: bool = False
 
     # caster properties
     current_arcana: CasterArcanum
     gnosis: int = LONG_COD_ATTRIBUTE
-    rote_skill: Skill | None
+    rote_skill: Skill | None = None
     misc_bonus: int = Field(default=1, gt=-1)
-    spent_willpower: bool
+    spent_willpower: bool = False
 
-    # factors
-    potency: SpellFactor
-    duration: SpellFactor
-    casting_time: SpellFactor
-    scale: SpellFactor
-    range: SpellFactor
-    extra_reach: List[str]
-    yantras: List[Yantra]
+    # casting properties
+    extra_reach: List[str] = []
+    yantras: List[Yantra] = []
+
+    ## factors
+    potency: SpellFactor = SpellFactor()  # the default spellfactor
+    duration: SpellFactor = SpellFactor()
+    casting_time: SpellFactor = SpellFactor()
+    scale: SpellFactor = SpellFactor()
+    range: SpellFactor = SpellFactor()
+
+    ## paradox
+    sleepers: bool = False
+    paradox_accumulation: int = 0
+    is_inured: bool = False
+    paradox_mana_spent: int = 0
