@@ -12,6 +12,12 @@ class NamedProperty(BaseModel):
     name: str
     value: int = POSITIVE_INT
 
+    def __eq__(self, other) -> bool:
+        return self.value == other.value
+
+    def __lt__(self, other) -> bool:
+        return self.value < other.value
+
 
 class Skill(NamedProperty):
     value: int = SHORT_COD_ATTRIBUTE

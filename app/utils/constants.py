@@ -1,0 +1,1 @@
+MAX_YANTRA_BONUS = 5
