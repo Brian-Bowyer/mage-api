@@ -3,7 +3,7 @@ from enum import Enum
 from math import ceil
 
 from pydantic import BaseModel, Field, root_validator
-from models import (
+from app.models import (
     NamedProperty,
     Skill,
     POSITIVE_INT,
