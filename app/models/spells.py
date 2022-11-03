@@ -1,6 +1,5 @@
 from typing import List
 from enum import Enum
-from math import ceil
 
 from pydantic import BaseModel, Field, root_validator
 from app.models import (
@@ -10,28 +9,16 @@ from app.models import (
     SHORT_COD_ATTRIBUTE,
     LONG_COD_ATTRIBUTE,
 )
+from app.utils.spells import (
+    max_yantras,
+    paradox_per_reach,
+)
 from app.utils.constants import MAX_YANTRA_BONUS
 
 
 class PrimaryFactorMode(str, Enum):
     POTENCY = "Potency"
     DURATION = "Duration"
-
-
-def max_yantras(gnosis: int) -> int:
-    return 1 + ceil(gnosis / 2)
-
-
-def highest_arcana_max(gnosis: int) -> int:
-    return min(2 + ceil(gnosis / 2), 5)
-
-
-def other_arcana_max(gnosis: int) -> int:
-    return min(2 + gnosis // 2, 5)
-
-
-def paradox_per_reach(gnosis: int) -> int:
-    return (gnosis + 1) // 2
 
 
 def account_for_primary_factor(
