@@ -12,4 +12,5 @@ RUN /root/.local/bin/poetry install --no-interaction --no-ansi --no-root
 COPY . /app
 WORKDIR /app
 
-CMD ["./custom-start.sh"]
+# CMD ["./custom-start.sh"]
+CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "80", "--log-level", "info",  "--log-config", "./log_config"]
