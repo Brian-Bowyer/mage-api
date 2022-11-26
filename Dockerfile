@@ -13,4 +13,4 @@ COPY . /app
 WORKDIR /app
 
 # CMD ["./custom-start.sh"]
-CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "80", "--log-level", "info",  "--log-config", "./log_config"]
+CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "80"]
