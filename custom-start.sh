@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 set -e
-
+echo "Starting up..."
 # copied from https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/master/docker-images/start.sh
 
 if [ -f /app/app/main.py ]; then
@@ -8,8 +8,11 @@ if [ -f /app/app/main.py ]; then
 elif [ -f /app/main.py ]; then
     DEFAULT_MODULE_NAME=main
 fi
+echo "DEFAULT_MODULE_NAME=$DEFAULT_MODULE_NAME"
 MODULE_NAME=${MODULE_NAME:-$DEFAULT_MODULE_NAME}
+echo "MODULE_NAME=$MODULE_NAME"
 VARIABLE_NAME=${VARIABLE_NAME:-app}
+echo "VARIABLE_NAME=$VARIABLE_NAME"
 export APP_MODULE=${APP_MODULE:-"$MODULE_NAME:$VARIABLE_NAME"}
 
 if [ -f /app/gunicorn_conf.py ]; then
@@ -19,8 +22,11 @@ elif [ -f /app/app/gunicorn_conf.py ]; then
 else
     DEFAULT_GUNICORN_CONF=/gunicorn_conf.py
 fi
+echo "DEFAULT_GUNICORN_CONF=$DEFAULT_GUNICORN_CONF"
 export GUNICORN_CONF=${GUNICORN_CONF:-$DEFAULT_GUNICORN_CONF}
+echo "GUNICORN_CONF=$GUNICORN_CONF"
 export WORKER_CLASS=${WORKER_CLASS:-"uvicorn.workers.UvicornWorker"}
+echo "WORKER_CLASS=$WORKER_CLASS"
 
 # If there's a prestart.sh script in the /app directory or other path specified, run it before starting
 PRE_START_PATH=${PRE_START_PATH:-/app/prestart.sh}
@@ -33,5 +39,6 @@ else
 fi
 
 # Start Gunicorn
+echo "Starting gunicorn..."
 gunicorn -k "$WORKER_CLASS" -c "$GUNICORN_CONF" "$APP_MODULE"
 
