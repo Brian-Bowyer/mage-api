@@ -14,4 +14,4 @@ WORKDIR /app
 
 # CMD ["./custom-start.sh"]
 # CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "80"]
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "/gunicorn_conf.py", "app:main"]
+CMD ["gunicorn", "--bind=0.0.0.0:80", "--workers=2", "app:main"]

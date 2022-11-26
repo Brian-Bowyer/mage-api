@@ -1,4 +1,4 @@
-import multiprocessing
+# import multiprocessing
 
 # the socket to bind to
 bind = "0.0.0.0:80"
@@ -7,7 +7,7 @@ bind = "0.0.0.0:80"
 backlog = 256
 
 # the number of worker processes that should be kept alive for handling requests
-workers = multiprocessing.cpu_count() - 1
+workers = 2  # multiprocessing.cpu_count() - 1
 
 # which worker class to use [sync, gevent, eventlet, tornado, gthread].
 # In case of gevent and eventlet use worker_connections = 1000.
