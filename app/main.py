@@ -8,6 +8,7 @@ from starlette.requests import Request
 
 from app import __version__
 from .routes.spell_helper import router as spell_helper_router
+from .routes.ephemeral_maker import router as ephemeral_router
 
 log = logging.getLogger(__name__)
 
@@ -30,6 +31,7 @@ async def ping():
 
 
 app.include_router(spell_helper_router, prefix="/spell")
+app.include_router(ephemeral_router, prefix="/ephemeral")
 
 
 @app.middleware("http")
