@@ -46,3 +46,6 @@ coverage.xml
 
 # ENV files
 *.env
+
+# mypy
+.mypy_cache
