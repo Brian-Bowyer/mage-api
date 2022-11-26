@@ -27,6 +27,6 @@ services:
       - 80:80
     # depends_on:
     #   - postgres
-    # env_file: common_environment.env
-    # environment:
-    #   DEBUG: 1
+    env_file: common_environment.env
+    environment:
+      DEBUG: 1
