@@ -1,5 +1,7 @@
 #! /usr/bin/env sh
-set -e
+gunicorn --config=./gunicorn_conf.py app.main:app
+
+# set -e
 # echo "Starting up..."
 # # copied from https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/master/docker-images/start.sh
 
@@ -41,4 +43,4 @@ set -e
 # # Start Gunicorn
 # echo "Starting gunicorn..."
 # gunicorn -k "$WORKER_CLASS" -c "$GUNICORN_CONF" "$APP_MODULE"
-gunicorn -k "uvicorn.workers.UvicornWorker" -c "/gunicorn_conf.py" "app:main"
+
