@@ -15,14 +15,12 @@ services:
     build:
       context: ./
     volumes:
-      # allows this container to run docker commands on the host
-      # - /var/run/docker.sock:/var/run/docker.sock
       # allows auto-reload when code is changed
       - ./:/app
     # command needs to be overwritten to use auto-reload
-    # command: >
-    #   sh -c "
-    #     uvicorn app.main:app --reload --host 0.0.0.0 --port 80 --log-level info  --log-config ./log_config"
+    command: >
+      sh -c "
+        uvicorn app.main:app --reload --host 0.0.0.0 --port 80 --log-level info  --log-config ./log_config"
     ports:
       - 80:80
     depends_on:
