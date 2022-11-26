@@ -1,4 +1,4 @@
-# Dependencies
+#, Dependencies
 FROM python:3.10-slim
 ENV POETRY_VERSION=1.1.13
 
@@ -12,5 +12,6 @@ RUN /root/.local/bin/poetry install --no-interaction --no-ansi --no-root
 COPY . /app
 WORKDIR /app
 
-CMD ["./custom-start.sh"]
+# CMD ["./custom-start.sh"]
 # CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "80"]
+CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-c", "/gunicorn_conf.py", "app:main"]
