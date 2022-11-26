@@ -10,6 +10,7 @@ fastapi = "^0.78.0"
 starlette = "^0.19.1"
 pydantic = {version = "^1.9.1", extras = ["email"]}
 uvicorn = "^0.18.2"
+gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
