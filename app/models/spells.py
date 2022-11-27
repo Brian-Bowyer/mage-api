@@ -1,19 +1,17 @@
-from typing import List
 from enum import Enum
+from typing import List
 
 from pydantic import BaseModel, Field, root_validator
+
 from app.models import (
-    NamedProperty,
-    Skill,
+    LONG_COD_ATTRIBUTE,
     POSITIVE_INT,
     SHORT_COD_ATTRIBUTE,
-    LONG_COD_ATTRIBUTE,
-)
-from app.utils.spells import (
-    max_yantras,
-    paradox_per_reach,
+    NamedProperty,
+    Skill,
 )
 from app.utils.constants import MAX_YANTRA_BONUS
+from app.utils.spells import max_yantras, paradox_per_reach
 
 
 class PrimaryFactorMode(str, Enum):

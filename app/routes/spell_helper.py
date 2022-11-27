@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from fastapi.routing import APIRouter
 
-from app.models.spells import SpellInput, CasterInput, CastInput, PrimaryFactorMode
+from app.models.spells import CasterInput, CastInput, PrimaryFactorMode, SpellInput
 
 router = APIRouter()
 
