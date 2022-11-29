@@ -1,13 +1,14 @@
-import time
-import logging
 import http
+import logging
+import time
 
 from fastapi import FastAPI
-
 from starlette.requests import Request
 
 from app import __version__
-from .routes.spell_helper import router as spell_helper_router
+from app.routes.spell_helper import router as spell_helper_router
+from app.utils.errors import init_exception_handlers
+from app.utils.middleware import init_middleware
 
 log = logging.getLogger(__name__)
 
@@ -31,20 +32,5 @@ async def ping():
 
 app.include_router(spell_helper_router, prefix="/spell")
 
-
-@app.middleware("http")
-async def log_request(request: Request, call_next):
-    response = await call_next(request)
-    log.info(
-        f"REQUEST [{request.method} {request.url.path}] FROM [{request.headers.get('user-agent')}] RETURNED [{response.status_code} {http.HTTPStatus(response.status_code).phrase}]"
-    )
-    return response
-
-
-@app.middleware("http")
-async def response_time(request: Request, call_next):
-    start_time = time.time()
-    response = await call_next(request)
-    end_time = time.time()
-    response.headers["X-Response-Time"] = f"{(end_time - start_time)*1000}"
-    return response
+init_exception_handlers(app)
+init_middleware(app)
