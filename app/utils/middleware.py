@@ -1,11 +1,9 @@
 import http
 import logging
 import time
-from typing import Callable
 
-from fastapi import FastAPI, Response
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
 
 log = logging.getLogger("fastapi")
@@ -17,7 +15,7 @@ def init_middleware(app: FastAPI) -> None:
     async def log_request(request: Request, call_next):
         response = await call_next(request)
         log.info(
-            f"REQUEST [{request.method} {request.url.path}] FROM [{request.headers.get('user-agent')}] RETURNED [{response.status_code} {http.HTTPStatus(response.status_code).phrase}]"
+            f"REQUEST [{request.method} {request.url.path}] FROM [{request.headers.get('user-agent')} | {request.headers.get('referer')}] RETURNED [{response.status_code} {http.HTTPStatus(response.status_code).phrase}]"
         )
         return response
 
@@ -35,6 +33,7 @@ def init_middleware(app: FastAPI) -> None:
             "https://localhost",
             "http://localhost",
             "http://localhost:8080",
+            "http://0.0.0.0",
             "https://cors-test.codehappy.dev",
         ],
         allow_credentials=True,
