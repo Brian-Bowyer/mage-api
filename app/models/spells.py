@@ -1,19 +1,17 @@
-from typing import List
 from enum import Enum
+from typing import List
 
 from pydantic import BaseModel, Field, root_validator
+
 from app.models import (
-    NamedProperty,
-    Skill,
+    LONG_COD_ATTRIBUTE,
     POSITIVE_INT,
     SHORT_COD_ATTRIBUTE,
-    LONG_COD_ATTRIBUTE,
-)
-from app.utils.spells import (
-    max_yantras,
-    paradox_per_reach,
+    NamedProperty,
+    Skill,
 )
 from app.utils.constants import MAX_YANTRA_BONUS
+from app.utils.spells import max_yantras, paradox_per_reach
 
 
 class PrimaryFactorMode(str, Enum):
@@ -42,13 +40,16 @@ class Yantra(NamedProperty):
 
 
 class Yantras(BaseModel):
-    __root__ = list[Yantra]
+    __root__: list[Yantra]
 
     def __iter__(self):
         return iter(self.__root__)
 
     def __getitem__(self, item) -> Yantra:
         return self.__root__[item]  # type: ignore
+
+    def __len__(self) -> int:
+        return len(self.__root__)
 
     def names(self) -> list:
         return [yantra.name for yantra in self]
@@ -278,7 +279,7 @@ class CastInput(BaseModel):
             caster_arcanum.name == spell_arcanum.name
         ), f"Arcana names don't match: {caster_arcanum.name=} vs {spell_arcanum.name=}"
         assert (
-            caster_arcanum.magnitude >= spell_arcanum.magnitude
+            caster_arcanum.value >= spell_arcanum.value
         ), f"Caster must have {spell_arcanum} Arcanum rating to cast this spell, but only has {caster_arcanum}"
 
         return values
@@ -290,7 +291,7 @@ class CastInput(BaseModel):
         current_num_yantras = len(values["yantras"])
 
         assert (
-            current_num_yantras > permitted_num_yantras
+            current_num_yantras <= permitted_num_yantras
         ), f"Caster of gnosis {gnosis} can only use {permitted_num_yantras}, but you have {current_num_yantras}"
 
         return values
