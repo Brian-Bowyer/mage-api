@@ -15,7 +15,7 @@ def init_middleware(app: FastAPI) -> None:
     async def log_request(request: Request, call_next):
         response = await call_next(request)
         log.info(
-            f"REQUEST [{request.method} {request.url.path}] FROM [{request.headers.get('user-agent')} | {request.headers.get('referer')}] RETURNED [{response.status_code} {http.HTTPStatus(response.status_code).phrase}]"
+            f"REQUEST [{request.method} {request.url.path}] FROM [{request.headers.get('user-agent')} | {request.headers.get('referer')} | {request.headers.get('origin')}] RETURNED [{response.status_code} {http.HTTPStatus(response.status_code).phrase}]"
         )
         return response
 
@@ -35,6 +35,7 @@ def init_middleware(app: FastAPI) -> None:
             "http://localhost:8080",
             "http://0.0.0.0",
             "https://cors-test.codehappy.dev",
+            "https://mage-api.onrender.com",
         ],
         allow_credentials=True,
         allow_methods=["*"],

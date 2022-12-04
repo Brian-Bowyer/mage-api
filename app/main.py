@@ -22,5 +22,5 @@ app = FastAPI(
 app.include_router(system_router)
 app.include_router(spell_helper_router, prefix="/spell")
 
-init_exception_handlers(app)
 init_middleware(app)
+init_exception_handlers(app)
