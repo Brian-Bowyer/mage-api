@@ -289,7 +289,10 @@ class CastInput(BaseModel):
 
     @root_validator
     def has_under_permitted_number_of_yantras(cls, values: dict) -> dict:
-        gnosis = values["caster"].gnosis
+        try:
+            gnosis = values["caster"].gnosis
+        except KeyError:
+            raise ValueError(values)
         permitted_num_yantras = max_yantras(gnosis)
         current_num_yantras = len(values["yantras"])
 
