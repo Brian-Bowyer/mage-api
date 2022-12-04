@@ -271,10 +271,13 @@ class CastInput(BaseModel):
     # validators
     @root_validator
     def has_required_arcana_rating(cls, values: dict) -> dict:
-        caster_arcanum, spell_arcanum = (
-            values["caster"].arcanum,
-            values["spell"].arcanum,
-        )
+        try:
+            caster_arcanum, spell_arcanum = (
+                values["caster"].arcanum,
+                values["spell"].arcanum,
+            )
+        except KeyError:
+            raise ValueError(values)
         assert (
             caster_arcanum.name == spell_arcanum.name
         ), f"Arcana names don't match: {caster_arcanum.name=} vs {spell_arcanum.name=}"
