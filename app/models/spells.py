@@ -277,7 +277,7 @@ class CastInput(BaseModel):
                 values["spell"].arcanum,
             )
         except KeyError:
-            raise ValueError(values)
+            raise KeyError(values)
         assert (
             caster_arcanum.name == spell_arcanum.name
         ), f"Arcana names don't match: {caster_arcanum.name=} vs {spell_arcanum.name=}"
@@ -292,7 +292,7 @@ class CastInput(BaseModel):
         try:
             gnosis = values["caster"].gnosis
         except KeyError:
-            raise ValueError(values)
+            raise KeyError(values)
         permitted_num_yantras = max_yantras(gnosis)
         current_num_yantras = len(values["yantras"])
 
