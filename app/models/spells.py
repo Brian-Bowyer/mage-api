@@ -232,7 +232,7 @@ class Paradox(BaseModel):
 
 class SpellInput(BaseModel):
     # spell properties
-    name: str | None = None
+    name: str = "Name"
     arcanum: SpellArcanum
     is_rote: bool = False
     rote_skill: Skill | None = None

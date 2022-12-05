@@ -1,5 +1,5 @@
-from typing import List
 from enum import Enum
+from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -9,7 +9,7 @@ LONG_COD_ATTRIBUTE = Field(default=1, gt=0, lt=11)
 
 
 class NamedProperty(BaseModel):
-    name: str
+    name: str = "Name"
     value: int = POSITIVE_INT
 
     def __eq__(self, other) -> bool:
